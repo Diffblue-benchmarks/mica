@@ -23,7 +23,8 @@ import com.netflix.hystrix.strategy.eventnotifier.HystrixEventNotifier;
 import com.netflix.hystrix.strategy.executionhook.HystrixCommandExecutionHook;
 import com.netflix.hystrix.strategy.metrics.HystrixMetricsPublisher;
 import com.netflix.hystrix.strategy.properties.HystrixPropertiesStrategy;
-import net.dreamlu.mica.props.MicaHystrixHeadersProperties;
+import net.dreamlu.mica.context.MicaHeadersProperties;
+import net.dreamlu.mica.context.MicaHttpHeadersGetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -39,16 +40,14 @@ import javax.annotation.PostConstruct;
  */
 @Configuration
 @ConditionalOnClass(Hystrix.class)
-@EnableConfigurationProperties(MicaHystrixHeadersProperties.class)
+@EnableConfigurationProperties(MicaHeadersProperties.class)
 public class MicaHystrixAutoConfiguration {
 	@Nullable
 	@Autowired(required = false)
 	private HystrixConcurrencyStrategy existingConcurrencyStrategy;
 	@Nullable
 	@Autowired(required = false)
-	private MicaHystrixAccountGetter accountGetter;
-	@Autowired
-	private MicaHystrixHeadersProperties properties;
+	private MicaHttpHeadersGetter headersGetter;
 
 	@PostConstruct
 	public void init() {
@@ -61,7 +60,7 @@ public class MicaHystrixAutoConfiguration {
 		HystrixPlugins.reset();
 
 		// Registers existing plugins excepts the Concurrent Strategy plugin.
-		HystrixConcurrencyStrategy strategy = new MicaHystrixConcurrencyStrategy(existingConcurrencyStrategy, accountGetter, properties);
+		HystrixConcurrencyStrategy strategy = new MicaHystrixConcurrencyStrategy(existingConcurrencyStrategy, headersGetter);
 		HystrixPlugins.getInstance().registerConcurrencyStrategy(strategy);
 		HystrixPlugins.getInstance().registerEventNotifier(eventNotifier);
 		HystrixPlugins.getInstance().registerMetricsPublisher(metricsPublisher);

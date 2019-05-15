@@ -22,8 +22,7 @@ import lombok.RequiredArgsConstructor;
 import net.dreamlu.mica.core.utils.Charsets;
 import net.dreamlu.mica.http.logger.HttpLoggingInterceptor;
 import net.dreamlu.mica.http.logger.OkHttpSlf4jLogger;
-import net.dreamlu.mica.hystrix.MicaHystrixAccountGetter;
-import net.dreamlu.mica.props.MicaHystrixHeadersProperties;
+import net.dreamlu.mica.context.MicaHeadersProperties;
 import net.dreamlu.mica.props.MicaRequestLogProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -118,7 +117,7 @@ public class RestTemplateConfiguration {
 	@Bean
 	public RestTemplateHeaderInterceptor requestHeaderInterceptor(
 		@Autowired(required = false) @Nullable MicaHystrixAccountGetter accountGetter,
-		MicaHystrixHeadersProperties properties) {
+		MicaHeadersProperties properties) {
 		return new RestTemplateHeaderInterceptor(accountGetter, properties);
 	}
 

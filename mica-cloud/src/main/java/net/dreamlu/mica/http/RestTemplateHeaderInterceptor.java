@@ -17,9 +17,7 @@
 package net.dreamlu.mica.http;
 
 import lombok.RequiredArgsConstructor;
-import net.dreamlu.mica.hystrix.MicaHttpHeadersContextHolder;
-import net.dreamlu.mica.hystrix.MicaHystrixAccountGetter;
-import net.dreamlu.mica.props.MicaHystrixHeadersProperties;
+import net.dreamlu.mica.context.MicaHeadersProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -38,7 +36,7 @@ import java.io.IOException;
 public class RestTemplateHeaderInterceptor implements ClientHttpRequestInterceptor {
 	@Nullable
 	private final MicaHystrixAccountGetter accountGetter;
-	private final MicaHystrixHeadersProperties properties;
+	private final MicaHeadersProperties properties;
 
 	@Override
 	public ClientHttpResponse intercept(

@@ -18,7 +18,6 @@ package net.dreamlu.mica.feign;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
-import net.dreamlu.mica.hystrix.MicaHttpHeadersContextHolder;
 import org.springframework.http.HttpHeaders;
 
 /**
