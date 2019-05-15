@@ -16,7 +16,7 @@
 
 package net.dreamlu.mica.http;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import net.dreamlu.mica.hystrix.MicaHttpHeadersContextHolder;
 import net.dreamlu.mica.hystrix.MicaHystrixAccountGetter;
 import net.dreamlu.mica.props.MicaHystrixHeadersProperties;
@@ -34,7 +34,7 @@ import java.io.IOException;
  *
  * @author L.cm
  */
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RestTemplateHeaderInterceptor implements ClientHttpRequestInterceptor {
 	@Nullable
 	private final MicaHystrixAccountGetter accountGetter;
